@@ -38,7 +38,7 @@
 function getTest(){
     var url = 'some url here...'
     /*@params: url,dataType*/
-    get(url).then(function(rs){
+    unAjax.get(url).then(function(rs){
         console.log('get',rs)
     })
 }
@@ -47,7 +47,7 @@ function postTest(){
     var url = 'some url here...';
     /*@params: url,data,dataType*/
     var data = "a=b&c=d"
-    post(url,data).then(function(rs){
+    unAjax.post(url,data).then(function(rs){
         console.log('post',rs)
     })
 }
@@ -55,7 +55,7 @@ function postTest(){
 function jsonpTest(){
     var url = 'some url here...';
     /*@params: url,dataType*/
-    get(url,'jsonp').then(function(rs){
+    unAjax.get(url,'jsonp').then(function(rs){
         console.log('jsonp then',rs)
     }).catch(function(rs){
         console.log('jsonp catch',rs)
@@ -66,7 +66,7 @@ function jsonpTest(){
 function ajaxTest(){
     var url = 'some url here...';
     var data = "a=b&c=d"
-    ajax({
+    unAjax.ajax({
         url:url,
         method:'POST',
         data:data,

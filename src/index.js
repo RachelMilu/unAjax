@@ -106,8 +106,6 @@
         var method = String.prototype.toUpperCase.apply(options.method)
         if (method == 'GET' || options.dataType == 'jsonp') {
             options.url = formatConnector(options.url)
-        } else {
-            options.data = serialize(options.data)
         }
         return options
     }
@@ -116,16 +114,18 @@
         return (url.indexOf('?') != -1) ? url : (url + "?")
     }
 
-    function serialize(param) {
-        var rs = ''
-        if (typeof param != 'string') {
-            //todo serialize the obj into 'a=b&c=d'
-            return rs
-        }
-        return param
+    if (typeof module !== 'undefined' && module.exports) {
+        exports.ajax = ajax
+        exports.get = get
+        exports.post = post
+        exports.jsonp = jsonp
+    } else {
+        window.unAjax = {
+            ajax:ajax,
+            get:get,
+            post:post,
+            jsonp:jsonp
+        };
     }
 
-    window.ajax = ajax
-    window.post = post
-    window.get = get
 })(window)
