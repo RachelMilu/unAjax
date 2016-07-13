@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <title>ajax.js test</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main">
+        <div class="a1" onclick="getTest()">get</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="a2" onclick="postTest()">post</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="a3" onclick="jsonpTest()">jsonp</div>
+        <br/>
+        <br/>
+        <br/>
+        <div class="a4" onclick="ajaxTest()">ajax</div>
+        <br/>
+        <br/>
+    </div>
+</div>
+<!--<script src="build/static/ajax.js"></script>-->
+<script src="src/index.js"></script>
+<script>
+function getTest(){
+    var url = 'some url here...'
+    /*@params: url,dataType*/
+    get(url).then(function(rs){
+        console.log('get',rs)
+    })
+}
+
+function postTest(){
+    var url = 'some url here...';
+    /*@params: url,data,dataType*/
+    var data = "a=b&c=d"
+    post(url,data).then(function(rs){
+        console.log('post',rs)
+    })
+}
+
+function jsonpTest(){
+    var url = 'some url here...';
+    /*@params: url,dataType*/
+    get(url,'jsonp').then(function(rs){
+        console.log('jsonp then',rs)
+    }).catch(function(rs){
+        console.log('jsonp catch',rs)
+    })
+}
+
+
+function ajaxTest(){
+    var url = 'some url here...';
+    var data = "a=b&c=d"
+    ajax({
+        url:url,
+        method:'POST',
+        data:data,
+        headers:{
+            "content-Type":"text/plain"
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+    }).then(function(rs){
+        console.log('ajax',rs)
+    })
+}
+
+</script>
+</body>
+</html>
