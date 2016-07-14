@@ -18,11 +18,11 @@ gulp.task('build:static', ['clean:static'], function () {
     var outputPath = './build/static/';
 
     return gulp.src(inputPath)
-        .pipe(concat('ajax.debug.js'))
+        .pipe(concat('unajax.debug.js'))
         .pipe(gulp.dest(outputPath))
         .pipe(uglify())
         .pipe(rename({
-            basename:'ajax',
+            basename:'unajax',
             extname: ".js"
         }))
         .pipe(gulp.dest(outputPath));

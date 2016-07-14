@@ -1,5 +1,5 @@
 {
-  "name": "ajax",
+  "name": "unajax",
   "version": "0.0.1",
   "description": "A light ajax library with Promise usage",
   "main": "index.js",
