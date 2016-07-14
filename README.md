@@ -1,4 +1,4 @@
-# ajax
+# unAjax
 
 ## Intro
 A light ajax library with Promise usage
