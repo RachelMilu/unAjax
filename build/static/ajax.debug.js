@@ -6,7 +6,7 @@
         return new Promise(function (resolve, reject) {
             /*check if the dataType is jsonp*/
             if ('jsonp' == options.dataType) {
-                jsonp(options.url, resolve, reject)
+                jsonpRequest(options.url, resolve, reject)
                 return
             }
 
@@ -20,7 +20,7 @@
                         resolve(result)
                     } else {
                         result = xmlhttp
-                        reject(xmlhttp)
+                        reject(result)
                     }
                 }
             }
@@ -28,7 +28,7 @@
                 //options.error && options.error(xmlhttp.responseText)
                 reject(xmlhttp)
             }
-            console.log(options)
+
             xmlhttp.open(options.method, options.url, options.async)
 
             /*set headers*/
@@ -42,7 +42,6 @@
             if (options.contentType || (options.headers && options.headers['Content-Type']) || (options.contentType !== false && options.data && options.method.toUpperCase() != 'GET'))
                 xmlhttp.setRequestHeader('Content-Type', options.contentType || (options.headers && options.headers['Content-Type']) || 'application/x-www-form-urlencoded')
 
-
             /*set xhrFields*/
             var xhrFields = options.xhrFields
             if (xhrFields) {
@@ -50,10 +49,12 @@
                     xmlhttp[fieldKey] = xhrFields[fieldKey]
                 }
             }
-
             xmlhttp.send(options.data || '')
-
         })
+    }
+
+    function jsonp(url) {
+        return ajax('GET', url, null, 'jsonp')
     }
 
     function get(url, dataType) {
@@ -64,7 +65,7 @@
         return ajax('POST', url, data, dataType)
     }
 
-    function jsonp(url, resolve, reject) {
+    function jsonpRequest(url, resolve, reject) {
         var callbackName = 'callback' + Math.random().toString().slice(2, 8)
         window[callbackName] = function (data) {
             resolve(data)
@@ -76,7 +77,6 @@
             document.body.removeChild(script)
         })
         script.addEventListener('error', function (e) {
-            console.log('script load error')
             reject(e)
         })
         document.body.appendChild(script)

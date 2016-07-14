@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <title>fetch api</title>
+    <style>
+        .a {
+            padding: 30px;
+            background: #7f6f80;
+        }
+        .wrapper, .main,. page{
+            position: relative;
+        }
+        .test {
+            background: red;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main">
+        <div class="a1" onclick="getTest()">fetch url</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="a2" onclick="postTest()">fetch post</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="a3" onclick="jsonpTest()">jsonp</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+<script src="src/index.js"></script>
+<script>
+
+</script>
+<script>
+    function getTest(){
+        var url = 'your url here...';
+
+        if(fetch){
+            fetch(url).then(function(rs){
+                return rs.json()
+            }).then(function(rs){
+                console.log('then2..',rs)
+            })
+        }else{
+            console.log('fetch is not supported!')
+        }
+
+    }
+
+    function postTest(){
+        var url = 'your url here...';
+        var data = JSON.stringify({})
+
+        if(fetch && Headers){
+            var headers = new Headers();
+            headers.append("content-Type","text/plain")
+            var cfg = {
+                method:'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers:headers,
+                body:data
+            }
+            fetch(url,cfg).then(function(rs){
+                return rs.json()
+            }).then(function(rs){
+                console.log('fetch post..',rs)
+            })
+        }else{
+            console.log('fetch is not supported!')
+        }
+    }
+
+    /*CORS is not supported in ie8/9, you can use unAjax.jsonp(url) or unAjax.get(url,'jsonp')*/
+    function jsonpTest(){
+        var url = 'your url here...';
+
+        unAjax.jsonp(url).then(function(rs){
+            console.log('jsonp then',rs)
+        }).catch(function(rs){
+            console.log('jsonp catch',rs)
+        })
+    }
+
+
+</script>
+</body>
+</html>

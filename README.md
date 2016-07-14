@@ -75,13 +75,12 @@ A light ajax library with Promise usage
 
 #### params
 * url: srting
-* dataType: string, can be "json" or "jsonp"
 
 #### sample
 
 ````
      var url = 'some url here...';
-        unAjax.get(url,'jsonp').then(function(rs){
+        unAjax.get(url).then(function(rs){
             console.log('jsonp then',rs)
         }).catch(function(rs){
             console.log('jsonp catch',rs)
